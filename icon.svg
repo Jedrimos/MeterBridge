@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+
+  <!-- Background: dark navy rounded square -->
+  <rect width="256" height="256" rx="52" fill="#0B1F4A"/>
+
+  <!-- Subtle inner glow ring -->
+  <circle cx="128" cy="148" r="95" fill="none" stroke="#122B6A" stroke-width="6"/>
+
+  <!-- Gauge track (full arc: 120° → 60° clockwise = 300°) -->
+  <!-- Center 128,148  Radius 82  Start@120°(87,219) End@60°(169,219) -->
+  <path d="M 87 219 A 82 82 0 1 1 169 219"
+        fill="none" stroke="#1A3580" stroke-width="15" stroke-linecap="round"/>
+
+  <!-- Gauge active arc (0% → 70%  →  120° + 210° = 330°  endpoint 199,107) -->
+  <path d="M 87 219 A 82 82 0 1 1 199 107"
+        fill="none" stroke="#F59E0B" stroke-width="15" stroke-linecap="round"
+        opacity="0.95"/>
+
+  <!-- Graduation ticks (5 marks) -->
+  <g stroke="#4B6FAA" stroke-width="4" stroke-linecap="round">
+    <!-- 0% = 120°  -->
+    <line x1="87" y1="219" x2="80" y2="207"/>
+    <!-- 25% = 120+75=195°  cos195=−0.966 sin195=−0.259 → 128−79=49 148−21=127 -->
+    <line x1="49" y1="127" x2="39" y2="122"/>
+    <!-- 50% = 270°  cos270=0 sin270=−1 → 128 148−82=66 -->
+    <line x1="128" y1="66" x2="128" y2="55"/>
+    <!-- 75% = 345°  cos345=0.966 sin345=−0.259 → 207 127 -->
+    <line x1="207" y1="127" x2="217" y2="122"/>
+    <!-- 100% = 60° -->
+    <line x1="169" y1="219" x2="176" y2="207"/>
+  </g>
+
+  <!-- Needle (pointing to ~70% = 330°, tip at 199,107) -->
+  <line x1="128" y1="148" x2="196" y2="110"
+        stroke="white" stroke-width="5" stroke-linecap="round"/>
+
+  <!-- Center hub -->
+  <circle cx="128" cy="148" r="11" fill="white"/>
+  <circle cx="128" cy="148" r="5"  fill="#0B1F4A"/>
+
+  <!-- "kWh" label below needle pivot -->
+  <text x="128" y="195"
+        text-anchor="middle"
+        fill="#93C5FD"
+        font-family="system-ui, -apple-system, sans-serif"
+        font-size="19"
+        font-weight="700"
+        letter-spacing="3">kWh</text>
+
+  <!-- Lightning bolt (top-centre, power indicator) -->
+  <polygon points="140,32 124,62 134,62 118,90 150,56 138,56"
+           fill="#F59E0B"/>
+
+</svg>
