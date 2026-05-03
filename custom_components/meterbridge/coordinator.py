@@ -9,7 +9,6 @@ from typing import Any
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import CONF_HOST, CONF_PORT
 from homeassistant.core import HomeAssistant
-from homeassistant.exceptions import ConfigEntryNotReady
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 
 from .const import (
@@ -80,7 +79,7 @@ class MeterBridgeCoordinator(DataUpdateCoordinator[dict[str, Any]]):
             connected = await self._client.connect()
             if not connected:
                 self._client = None
-                raise ConfigEntryNotReady(f"Cannot connect to {host}:{port}")
+                raise UpdateFailed(f"Cannot connect to {host}:{port}")
         return self._client
 
     async def _read_register(self, reg: dict) -> float | int | None:
@@ -111,8 +110,8 @@ class MeterBridgeCoordinator(DataUpdateCoordinator[dict[str, Any]]):
             scale: float = reg.get("scale", 1)
             return round(raw * scale, 4) if scale != 1 else raw
 
-        except ModbusException as exc:
-            _LOGGER.warning("ModbusException for register %s: %s", reg["id"], exc)
+        except (ModbusException, UpdateFailed) as exc:
+            _LOGGER.warning("Modbus read failed for register %s: %s", reg["id"], exc)
             self._client = None
             return None
 

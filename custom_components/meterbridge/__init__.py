@@ -8,8 +8,6 @@ from pathlib import Path
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant
-from homeassistant.exceptions import ConfigEntryNotReady
-
 from .const import DOMAIN
 from .coordinator import MeterBridgeCoordinator
 
@@ -27,8 +25,8 @@ def load_device_profiles() -> dict[str, dict]:
             with path.open(encoding="utf-8") as f:
                 profile = json.load(f)
             profiles[profile["id"]] = profile
-        except Exception:
-            _LOGGER.warning("Failed to load device profile: %s", path.name)
+        except Exception as exc:
+            _LOGGER.warning("Failed to load device profile %s: %s", path.name, exc)
     return profiles
 
 
@@ -42,10 +40,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
     coordinator = MeterBridgeCoordinator(hass, entry, profiles[device_id])
 
-    try:
-        await coordinator.async_config_entry_first_refresh()
-    except ConfigEntryNotReady:
-        raise
+    await coordinator.async_config_entry_first_refresh()
 
     hass.data.setdefault(DOMAIN, {})[entry.entry_id] = {
         "coordinator": coordinator,

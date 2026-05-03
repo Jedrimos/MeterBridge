@@ -1,0 +1,55 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Seleziona dispositivo",
+        "description": "Scegli il tuo contatore intelligente Modbus dall'elenco.",
+        "data": {
+          "device_id": "Dispositivo"
+        }
+      },
+      "connection": {
+        "title": "Impostazioni di connessione",
+        "description": "Inserisci i dati di connessione Modbus TCP del tuo dispositivo.",
+        "data": {
+          "host": "Host (indirizzo IP)",
+          "port": "Porta",
+          "slave_id": "ID slave",
+          "poll_interval": "Intervallo di polling (secondi)"
+        }
+      },
+      "sensors": {
+        "title": "Seleziona gruppi di sensori",
+        "description": "Scegli quali gruppi di sensori abilitare per **{device_name}**. La connessione verrà testata all'invio.",
+        "data": {
+          "group_basic": "Valori di base (potenza totale, import/export)",
+          "group_phases": "Valori di fase (tensione/corrente/potenza L1/L2/L3)",
+          "group_energy": "Contatori di energia (kWh totali import/export)",
+          "group_quality": "Qualità della rete (frequenza, fattore di potenza)"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Impossibile connettersi al dispositivo. Verifica indirizzo IP, porta e ID slave.",
+      "no_groups_selected": "Seleziona almeno un gruppo di sensori."
+    },
+    "abort": {
+      "already_configured": "Questo dispositivo è già configurato."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Aggiorna gruppi di sensori",
+        "description": "Modifica i gruppi di sensori attivi o regola l'intervallo di polling.",
+        "data": {
+          "poll_interval": "Intervallo di polling (secondi)",
+          "group_basic": "Valori di base",
+          "group_phases": "Valori di fase",
+          "group_energy": "Contatori di energia",
+          "group_quality": "Qualità della rete"
+        }
+      }
+    }
+  }
+}

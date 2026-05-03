@@ -106,9 +106,15 @@ class MeterBridgeConfigFlow(ConfigFlow, domain=DOMAIN):
         profile = self._profiles[self._data[CONF_DEVICE_ID]]
         available_groups = _available_groups(profile)
         errors: dict[str, str] = {}
+        # Default pre-selection; preserved across error re-renders
+        selected_in_form = self._data.get("_selected_groups", ["basic"])
 
         if user_input is not None:
             selected = [g for g in available_groups if user_input.get(_group_field(g))]
+            # Remember selection so the form re-shows it on error
+            self._data["_selected_groups"] = selected
+            selected_in_form = selected
+
             if not selected:
                 errors["base"] = "no_groups_selected"
             else:
@@ -122,6 +128,7 @@ class MeterBridgeConfigFlow(ConfigFlow, domain=DOMAIN):
                     errors["base"] = "cannot_connect"
                 else:
                     self._data[CONF_GROUPS] = selected
+                    self._data.pop("_selected_groups", None)
                     await self.async_set_unique_id(
                         f"{self._data[CONF_HOST]}:{self._data[CONF_PORT]}:{self._data[CONF_SLAVE_ID]}"
                     )
@@ -132,7 +139,7 @@ class MeterBridgeConfigFlow(ConfigFlow, domain=DOMAIN):
 
         return self.async_show_form(
             step_id="sensors",
-            data_schema=_build_sensor_schema(available_groups, ["basic"]),
+            data_schema=_build_sensor_schema(available_groups, selected_in_form),
             errors=errors,
             description_placeholders={"device_name": profile["name"]},
         )
@@ -140,29 +147,26 @@ class MeterBridgeConfigFlow(ConfigFlow, domain=DOMAIN):
     @staticmethod
     @callback
     def async_get_options_flow(config_entry: ConfigEntry) -> MeterBridgeOptionsFlow:
-        return MeterBridgeOptionsFlow(config_entry)
+        return MeterBridgeOptionsFlow()
 
 
 # ------------------------------------------------------------------
 # Options flow – change sensor groups / poll interval after setup
 # ------------------------------------------------------------------
 class MeterBridgeOptionsFlow(OptionsFlow):
-    def __init__(self, entry: ConfigEntry) -> None:
-        self._entry = entry
-
     async def async_step_init(
         self, user_input: dict[str, Any] | None = None
     ) -> FlowResult:
         profiles: dict[str, dict] = await self.hass.async_add_executor_job(
             load_device_profiles
         )
-        profile = profiles.get(self._entry.data[CONF_DEVICE_ID], {})
+        profile = profiles.get(self.config_entry.data[CONF_DEVICE_ID], {})
         available_groups = _available_groups(profile)
-        current_groups: list[str] = self._entry.options.get(
-            CONF_GROUPS, self._entry.data.get(CONF_GROUPS, ["basic"])
+        current_groups: list[str] = self.config_entry.options.get(
+            CONF_GROUPS, self.config_entry.data.get(CONF_GROUPS, ["basic"])
         )
-        current_interval: int = self._entry.options.get(
-            CONF_POLL_INTERVAL, self._entry.data.get(CONF_POLL_INTERVAL, DEFAULT_POLL_INTERVAL)
+        current_interval: int = self.config_entry.options.get(
+            CONF_POLL_INTERVAL, self.config_entry.data.get(CONF_POLL_INTERVAL, DEFAULT_POLL_INTERVAL)
         )
 
         if user_input is not None:
