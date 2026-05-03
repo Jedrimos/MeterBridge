@@ -1,0 +1,55 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Select Device",
+        "description": "Choose your Modbus smart meter from the list.",
+        "data": {
+          "device_id": "Device"
+        }
+      },
+      "connection": {
+        "title": "Connection Settings",
+        "description": "Enter the Modbus TCP connection details for your device.",
+        "data": {
+          "host": "Host (IP address)",
+          "port": "Port",
+          "slave_id": "Slave ID",
+          "poll_interval": "Polling interval (seconds)"
+        }
+      },
+      "sensors": {
+        "title": "Select Sensor Groups",
+        "description": "Choose which sensor groups to enable for **{device_name}**. The connection will be tested when you submit.",
+        "data": {
+          "group_basic": "Basic Values (total power, import/export)",
+          "group_phases": "Phase Values (L1/L2/L3 voltage, current, power)",
+          "group_energy": "Energy Counters (kWh import/export total)",
+          "group_quality": "Grid Quality (frequency, power factor)"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Cannot connect to the device. Please verify the IP address, port and slave ID.",
+      "no_groups_selected": "Please select at least one sensor group."
+    },
+    "abort": {
+      "already_configured": "This device is already configured."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Update Sensor Groups",
+        "description": "Change active sensor groups or adjust the polling interval.",
+        "data": {
+          "poll_interval": "Polling interval (seconds)",
+          "group_basic": "Basic Values",
+          "group_phases": "Phase Values",
+          "group_energy": "Energy Counters",
+          "group_quality": "Grid Quality"
+        }
+      }
+    }
+  }
+}

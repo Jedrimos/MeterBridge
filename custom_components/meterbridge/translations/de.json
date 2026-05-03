@@ -1,0 +1,55 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Gerät auswählen",
+        "description": "Wähle deinen Modbus-Stromzähler aus der Liste.",
+        "data": {
+          "device_id": "Gerät"
+        }
+      },
+      "connection": {
+        "title": "Verbindungseinstellungen",
+        "description": "Gib die Modbus-TCP-Verbindungsdaten deines Geräts ein.",
+        "data": {
+          "host": "Host (IP-Adresse)",
+          "port": "Port",
+          "slave_id": "Slave-ID",
+          "poll_interval": "Abfrageintervall (Sekunden)"
+        }
+      },
+      "sensors": {
+        "title": "Sensorgruppen auswählen",
+        "description": "Wähle die Sensorgruppen für **{device_name}**. Die Verbindung wird beim Absenden getestet.",
+        "data": {
+          "group_basic": "Grundwerte (Gesamtleistung, Bezug/Einspeisung)",
+          "group_phases": "Phasenwerte (L1/L2/L3 Spannung, Strom, Leistung)",
+          "group_energy": "Energiezähler (kWh Bezug/Einspeisung gesamt)",
+          "group_quality": "Netzqualität (Frequenz, Leistungsfaktor)"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Verbindung zum Gerät fehlgeschlagen. Bitte IP-Adresse, Port und Slave-ID prüfen.",
+      "no_groups_selected": "Bitte mindestens eine Sensorgruppe auswählen."
+    },
+    "abort": {
+      "already_configured": "Dieses Gerät ist bereits konfiguriert."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Sensorgruppen anpassen",
+        "description": "Aktive Sensorgruppen ändern oder Abfrageintervall anpassen.",
+        "data": {
+          "poll_interval": "Abfrageintervall (Sekunden)",
+          "group_basic": "Grundwerte",
+          "group_phases": "Phasenwerte",
+          "group_energy": "Energiezähler",
+          "group_quality": "Netzqualität"
+        }
+      }
+    }
+  }
+}
