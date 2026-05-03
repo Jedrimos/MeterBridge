@@ -4,23 +4,34 @@
       "user": {
         "title": "Wybierz urządzenie",
         "description": "Wybierz swój inteligentny licznik Modbus z listy.",
-        "data": {
-          "device_id": "Urządzenie"
-        }
+        "data": { "device_id": "Urządzenie" }
       },
       "connection": {
+        "title": "Połączenie",
+        "menu_options": {
+          "manual": "Wprowadź adres IP ręcznie",
+          "discover": "Skanuj sieć w poszukiwaniu urządzeń (port 502)"
+        }
+      },
+      "manual": {
         "title": "Ustawienia połączenia",
         "description": "Wprowadź dane połączenia Modbus TCP dla swojego urządzenia.",
         "data": {
-          "host": "Host (adres IP)",
-          "port": "Port",
-          "slave_id": "ID slave",
-          "poll_interval": "Interwał odpytywania (sekundy)"
+          "host": "Host (adres IP)", "port": "Port",
+          "slave_id": "ID slave", "poll_interval": "Interwał odpytywania (sekundy)"
+        }
+      },
+      "discover": {
+        "title": "Znalezione urządzenia",
+        "description": "Znaleziono {count} urządzenie/urządzenia z otwartym portem 502. Wybierz lub wprowadź IP ręcznie.",
+        "data": {
+          "host": "Host (adres IP)", "port": "Port",
+          "slave_id": "ID slave", "poll_interval": "Interwał odpytywania (sekundy)"
         }
       },
       "sensors": {
         "title": "Wybierz grupy czujników",
-        "description": "Wybierz grupy czujników do aktywacji dla **{device_name}**. Połączenie zostanie przetestowane po zatwierdzeniu.",
+        "description": "Wybierz grupy czujników dla **{device_name}**.",
         "data": {
           "group_basic": "Wartości podstawowe (moc całkowita, pobór/oddanie)",
           "group_phases": "Wartości fazowe (napięcie/prąd/moc L1/L2/L3)",
@@ -30,24 +41,19 @@
       }
     },
     "error": {
-      "cannot_connect": "Nie można połączyć się z urządzeniem. Sprawdź adres IP, port i ID slave.",
+      "no_devices_found": "Nie znaleziono urządzeń z portem 502. Wprowadź IP ręcznie poniżej.",
       "no_groups_selected": "Wybierz co najmniej jedną grupę czujników."
     },
-    "abort": {
-      "already_configured": "To urządzenie jest już skonfigurowane."
-    }
+    "abort": { "already_configured": "To urządzenie jest już skonfigurowane." }
   },
   "options": {
     "step": {
       "init": {
         "title": "Aktualizuj grupy czujników",
-        "description": "Zmień aktywne grupy czujników lub dostosuj interwał odpytywania.",
         "data": {
           "poll_interval": "Interwał odpytywania (sekundy)",
-          "group_basic": "Wartości podstawowe",
-          "group_phases": "Wartości fazowe",
-          "group_energy": "Liczniki energii",
-          "group_quality": "Jakość sieci"
+          "group_basic": "Wartości podstawowe", "group_phases": "Wartości fazowe",
+          "group_energy": "Liczniki energii", "group_quality": "Jakość sieci"
         }
       }
     }

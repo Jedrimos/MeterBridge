@@ -4,50 +4,56 @@
       "user": {
         "title": "Sélectionner l'appareil",
         "description": "Choisissez votre compteur intelligent Modbus dans la liste.",
-        "data": {
-          "device_id": "Appareil"
-        }
+        "data": { "device_id": "Appareil" }
       },
       "connection": {
+        "title": "Connexion",
+        "menu_options": {
+          "manual": "Saisir l'adresse IP manuellement",
+          "discover": "Scanner le réseau (port 502)"
+        }
+      },
+      "manual": {
         "title": "Paramètres de connexion",
         "description": "Entrez les informations de connexion Modbus TCP de votre appareil.",
         "data": {
-          "host": "Hôte (adresse IP)",
-          "port": "Port",
-          "slave_id": "ID esclave",
-          "poll_interval": "Intervalle d'interrogation (secondes)"
+          "host": "Hôte (adresse IP)", "port": "Port",
+          "slave_id": "ID esclave", "poll_interval": "Intervalle d'interrogation (secondes)"
+        }
+      },
+      "discover": {
+        "title": "Appareils découverts",
+        "description": "{count} appareil(s) avec le port 502 trouvé(s). Sélectionnez ou entrez une IP manuellement.",
+        "data": {
+          "host": "Hôte (adresse IP)", "port": "Port",
+          "slave_id": "ID esclave", "poll_interval": "Intervalle d'interrogation (secondes)"
         }
       },
       "sensors": {
         "title": "Sélectionner les groupes de capteurs",
-        "description": "Choisissez les groupes de capteurs à activer pour **{device_name}**. La connexion sera testée lors de la soumission.",
+        "description": "Choisissez les groupes de capteurs pour **{device_name}**.",
         "data": {
           "group_basic": "Valeurs de base (puissance totale, import/export)",
           "group_phases": "Valeurs de phase (tension/courant/puissance L1/L2/L3)",
-          "group_energy": "Compteurs d'énergie (total kWh import/export)",
+          "group_energy": "Compteurs d'énergie (kWh totaux import/export)",
           "group_quality": "Qualité du réseau (fréquence, facteur de puissance)"
         }
       }
     },
     "error": {
-      "cannot_connect": "Impossible de se connecter à l'appareil. Vérifiez l'adresse IP, le port et l'ID esclave.",
+      "no_devices_found": "Aucun appareil avec le port 502 trouvé. Entrez l'IP manuellement ci-dessous.",
       "no_groups_selected": "Veuillez sélectionner au moins un groupe de capteurs."
     },
-    "abort": {
-      "already_configured": "Cet appareil est déjà configuré."
-    }
+    "abort": { "already_configured": "Cet appareil est déjà configuré." }
   },
   "options": {
     "step": {
       "init": {
         "title": "Mettre à jour les groupes de capteurs",
-        "description": "Modifier les groupes de capteurs actifs ou ajuster l'intervalle d'interrogation.",
         "data": {
           "poll_interval": "Intervalle d'interrogation (secondes)",
-          "group_basic": "Valeurs de base",
-          "group_phases": "Valeurs de phase",
-          "group_energy": "Compteurs d'énergie",
-          "group_quality": "Qualité du réseau"
+          "group_basic": "Valeurs de base", "group_phases": "Valeurs de phase",
+          "group_energy": "Compteurs d'énergie", "group_quality": "Qualité du réseau"
         }
       }
     }

@@ -4,23 +4,34 @@
       "user": {
         "title": "Apparaat selecteren",
         "description": "Kies uw Modbus slimme meter uit de lijst.",
-        "data": {
-          "device_id": "Apparaat"
-        }
+        "data": { "device_id": "Apparaat" }
       },
       "connection": {
+        "title": "Verbinding",
+        "menu_options": {
+          "manual": "IP-adres handmatig invoeren",
+          "discover": "Netwerk scannen op apparaten (poort 502)"
+        }
+      },
+      "manual": {
         "title": "Verbindingsinstellingen",
         "description": "Voer de Modbus TCP-verbindingsgegevens van uw apparaat in.",
         "data": {
-          "host": "Host (IP-adres)",
-          "port": "Poort",
-          "slave_id": "Slave ID",
-          "poll_interval": "Polling-interval (seconden)"
+          "host": "Host (IP-adres)", "port": "Poort",
+          "slave_id": "Slave ID", "poll_interval": "Polling-interval (seconden)"
+        }
+      },
+      "discover": {
+        "title": "Gevonden apparaten",
+        "description": "{count} apparaat/apparaten met poort 502 gevonden. Selecteer er een of voer een IP handmatig in.",
+        "data": {
+          "host": "Host (IP-adres)", "port": "Poort",
+          "slave_id": "Slave ID", "poll_interval": "Polling-interval (seconden)"
         }
       },
       "sensors": {
         "title": "Sensorgroepen selecteren",
-        "description": "Kies welke sensorgroepen worden ingeschakeld voor **{device_name}**. De verbinding wordt getest bij het verzenden.",
+        "description": "Kies welke sensorgroepen worden ingeschakeld voor **{device_name}**.",
         "data": {
           "group_basic": "Basiswaarden (totaal vermogen, import/export)",
           "group_phases": "Fasewaarden (spanning/stroom/vermogen L1/L2/L3)",
@@ -30,24 +41,19 @@
       }
     },
     "error": {
-      "cannot_connect": "Kan geen verbinding maken met het apparaat. Controleer het IP-adres, de poort en het slave ID.",
+      "no_devices_found": "Geen apparaten met poort 502 gevonden. Voer het IP handmatig in.",
       "no_groups_selected": "Selecteer ten minste één sensorgroep."
     },
-    "abort": {
-      "already_configured": "Dit apparaat is al geconfigureerd."
-    }
+    "abort": { "already_configured": "Dit apparaat is al geconfigureerd." }
   },
   "options": {
     "step": {
       "init": {
         "title": "Sensorgroepen bijwerken",
-        "description": "Wijzig actieve sensorgroepen of pas het polling-interval aan.",
         "data": {
           "poll_interval": "Polling-interval (seconden)",
-          "group_basic": "Basiswaarden",
-          "group_phases": "Fasewaarden",
-          "group_energy": "Energietellers",
-          "group_quality": "Netkwaliteit"
+          "group_basic": "Basiswaarden", "group_phases": "Fasewaarden",
+          "group_energy": "Energietellers", "group_quality": "Netkwaliteit"
         }
       }
     }

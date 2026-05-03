@@ -4,23 +4,34 @@
       "user": {
         "title": "Seleccionar dispositivo",
         "description": "Elige tu contador inteligente Modbus de la lista.",
-        "data": {
-          "device_id": "Dispositivo"
-        }
+        "data": { "device_id": "Dispositivo" }
       },
       "connection": {
+        "title": "Conexión",
+        "menu_options": {
+          "manual": "Introducir dirección IP manualmente",
+          "discover": "Escanear red en busca de dispositivos (puerto 502)"
+        }
+      },
+      "manual": {
         "title": "Configuración de conexión",
         "description": "Introduce los datos de conexión Modbus TCP de tu dispositivo.",
         "data": {
-          "host": "Host (dirección IP)",
-          "port": "Puerto",
-          "slave_id": "ID esclavo",
-          "poll_interval": "Intervalo de consulta (segundos)"
+          "host": "Host (dirección IP)", "port": "Puerto",
+          "slave_id": "ID esclavo", "poll_interval": "Intervalo de consulta (segundos)"
+        }
+      },
+      "discover": {
+        "title": "Dispositivos descubiertos",
+        "description": "Se encontraron {count} dispositivo(s) con el puerto 502 abierto. Selecciona uno o introduce una IP manualmente.",
+        "data": {
+          "host": "Host (dirección IP)", "port": "Puerto",
+          "slave_id": "ID esclavo", "poll_interval": "Intervalo de consulta (segundos)"
         }
       },
       "sensors": {
         "title": "Seleccionar grupos de sensores",
-        "description": "Elige qué grupos de sensores activar para **{device_name}**. La conexión se probará al enviar.",
+        "description": "Elige los grupos de sensores para **{device_name}**.",
         "data": {
           "group_basic": "Valores básicos (potencia total, importación/exportación)",
           "group_phases": "Valores de fase (tensión/corriente/potencia L1/L2/L3)",
@@ -30,24 +41,19 @@
       }
     },
     "error": {
-      "cannot_connect": "No se puede conectar al dispositivo. Verifica la dirección IP, el puerto y el ID esclavo.",
+      "no_devices_found": "No se encontraron dispositivos con el puerto 502. Introduce la IP manualmente.",
       "no_groups_selected": "Selecciona al menos un grupo de sensores."
     },
-    "abort": {
-      "already_configured": "Este dispositivo ya está configurado."
-    }
+    "abort": { "already_configured": "Este dispositivo ya está configurado." }
   },
   "options": {
     "step": {
       "init": {
         "title": "Actualizar grupos de sensores",
-        "description": "Cambia los grupos de sensores activos o ajusta el intervalo de consulta.",
         "data": {
           "poll_interval": "Intervalo de consulta (segundos)",
-          "group_basic": "Valores básicos",
-          "group_phases": "Valores de fase",
-          "group_energy": "Contadores de energía",
-          "group_quality": "Calidad de red"
+          "group_basic": "Valores básicos", "group_phases": "Valores de fase",
+          "group_energy": "Contadores de energía", "group_quality": "Calidad de red"
         }
       }
     }
