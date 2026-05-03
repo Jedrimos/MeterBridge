@@ -3,24 +3,35 @@
     "step": {
       "user": {
         "title": "Seleziona dispositivo",
-        "description": "Scegli il tuo contatore intelligente Modbus dall'elenco.",
-        "data": {
-          "device_id": "Dispositivo"
-        }
+        "description": "Scegli il tuo contatore Modbus dall'elenco.",
+        "data": { "device_id": "Dispositivo" }
       },
       "connection": {
+        "title": "Connessione",
+        "menu_options": {
+          "manual": "Inserisci indirizzo IP manualmente",
+          "discover": "Scansiona la rete (porta 502)"
+        }
+      },
+      "manual": {
         "title": "Impostazioni di connessione",
         "description": "Inserisci i dati di connessione Modbus TCP del tuo dispositivo.",
         "data": {
-          "host": "Host (indirizzo IP)",
-          "port": "Porta",
-          "slave_id": "ID slave",
-          "poll_interval": "Intervallo di polling (secondi)"
+          "host": "Host (indirizzo IP)", "port": "Porta",
+          "slave_id": "ID slave", "poll_interval": "Intervallo di polling (secondi)"
+        }
+      },
+      "discover": {
+        "title": "Dispositivi scoperti",
+        "description": "Trovati {count} dispositivo/i con porta 502 aperta. Seleziona o inserisci un IP manualmente.",
+        "data": {
+          "host": "Host (indirizzo IP)", "port": "Porta",
+          "slave_id": "ID slave", "poll_interval": "Intervallo di polling (secondi)"
         }
       },
       "sensors": {
         "title": "Seleziona gruppi di sensori",
-        "description": "Scegli quali gruppi di sensori abilitare per **{device_name}**. La connessione verrà testata all'invio.",
+        "description": "Scegli i gruppi di sensori per **{device_name}**.",
         "data": {
           "group_basic": "Valori di base (potenza totale, import/export)",
           "group_phases": "Valori di fase (tensione/corrente/potenza L1/L2/L3)",
@@ -30,24 +41,19 @@
       }
     },
     "error": {
-      "cannot_connect": "Impossibile connettersi al dispositivo. Verifica indirizzo IP, porta e ID slave.",
+      "no_devices_found": "Nessun dispositivo con porta 502 trovato. Inserisci l'IP manualmente.",
       "no_groups_selected": "Seleziona almeno un gruppo di sensori."
     },
-    "abort": {
-      "already_configured": "Questo dispositivo è già configurato."
-    }
+    "abort": { "already_configured": "Questo dispositivo è già configurato." }
   },
   "options": {
     "step": {
       "init": {
         "title": "Aggiorna gruppi di sensori",
-        "description": "Modifica i gruppi di sensori attivi o regola l'intervallo di polling.",
         "data": {
           "poll_interval": "Intervallo di polling (secondi)",
-          "group_basic": "Valori di base",
-          "group_phases": "Valori di fase",
-          "group_energy": "Contatori di energia",
-          "group_quality": "Qualità della rete"
+          "group_basic": "Valori di base", "group_phases": "Valori di fase",
+          "group_energy": "Contatori di energia", "group_quality": "Qualità della rete"
         }
       }
     }

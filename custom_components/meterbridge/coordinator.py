@@ -1,6 +1,7 @@
 """DataUpdateCoordinator for MeterBridge – polls Modbus registers."""
 from __future__ import annotations
 
+import inspect
 import logging
 import struct
 from datetime import timedelta
@@ -23,6 +24,20 @@ from .const import (
 )
 
 _LOGGER = logging.getLogger(__name__)
+
+# pymodbus renamed the slave kwarg across versions:
+#   2.x  → unit=
+#   3.0–3.x → slave=
+# Detect once at import time so we never hard-code the wrong name.
+_SLAVE_KWARG = "slave"
+try:
+    from pymodbus.client import AsyncModbusTcpClient as _ATC  # noqa: PLC0415
+
+    _sig = inspect.signature(_ATC.read_holding_registers)
+    if "slave" not in _sig.parameters and "unit" in _sig.parameters:
+        _SLAVE_KWARG = "unit"
+except Exception:
+    pass  # keep default "slave"; will fail gracefully at runtime if wrong
 
 
 def _decode(registers: list[int], data_type: str) -> float | int:
@@ -60,9 +75,6 @@ class MeterBridgeCoordinator(DataUpdateCoordinator[dict[str, Any]]):
             update_interval=timedelta(seconds=poll_interval),
         )
 
-    # ------------------------------------------------------------------
-    # Internal helpers
-    # ------------------------------------------------------------------
     def _active_registers(self) -> list[dict]:
         groups: list[str] = self._entry.options.get(
             CONF_GROUPS, self._entry.data.get(CONF_GROUPS, [])
@@ -90,19 +102,18 @@ class MeterBridgeCoordinator(DataUpdateCoordinator[dict[str, Any]]):
         address: int = reg["register"]
         data_type: str = reg["data_type"]
         count: int = REGISTER_COUNT.get(data_type, 1)
+        slave_kwargs = {_SLAVE_KWARG: slave_id}
 
         try:
             if reg.get("register_type") == REGISTER_TYPE_INPUT:
-                result = await client.read_input_registers(address, count, slave=slave_id)
+                result = await client.read_input_registers(address, count, **slave_kwargs)
             else:
-                result = await client.read_holding_registers(address, count, slave=slave_id)
+                result = await client.read_holding_registers(address, count, **slave_kwargs)
 
             if result.isError():
                 _LOGGER.warning(
-                    "Modbus error reading register %s (%s): %s",
-                    reg["id"],
-                    address,
-                    result,
+                    "Modbus error reading register %s (addr %s): %s",
+                    reg["id"], address, result,
                 )
                 return None
 
@@ -115,9 +126,6 @@ class MeterBridgeCoordinator(DataUpdateCoordinator[dict[str, Any]]):
             self._client = None
             return None
 
-    # ------------------------------------------------------------------
-    # DataUpdateCoordinator contract
-    # ------------------------------------------------------------------
     async def _async_update_data(self) -> dict[str, Any]:
         data: dict[str, Any] = {}
         failed = 0

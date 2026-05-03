@@ -9,6 +9,13 @@
         }
       },
       "connection": {
+        "title": "Connection",
+        "menu_options": {
+          "manual": "Enter IP address manually",
+          "discover": "Scan network for devices (port 502)"
+        }
+      },
+      "manual": {
         "title": "Connection Settings",
         "description": "Enter the Modbus TCP connection details for your device.",
         "data": {
@@ -18,9 +25,19 @@
           "poll_interval": "Polling interval (seconds)"
         }
       },
+      "discover": {
+        "title": "Discovered Devices",
+        "description": "Found {count} device(s) with port 502 open on your network. Select one or enter an IP manually.",
+        "data": {
+          "host": "Host (IP address)",
+          "port": "Port",
+          "slave_id": "Slave ID",
+          "poll_interval": "Polling interval (seconds)"
+        }
+      },
       "sensors": {
         "title": "Select Sensor Groups",
-        "description": "Choose which sensor groups to enable for **{device_name}**. The connection will be tested when you submit.",
+        "description": "Choose which sensor groups to enable for **{device_name}**.",
         "data": {
           "group_basic": "Basic Values (total power, import/export)",
           "group_phases": "Phase Values (L1/L2/L3 voltage, current, power)",
@@ -30,7 +47,7 @@
       }
     },
     "error": {
-      "cannot_connect": "Cannot connect to the device. Please verify the IP address, port and slave ID.",
+      "no_devices_found": "No devices with port 502 found on your local network. Enter the IP manually below.",
       "no_groups_selected": "Please select at least one sensor group."
     },
     "abort": {
